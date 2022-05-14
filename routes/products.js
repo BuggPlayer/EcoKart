@@ -81,6 +81,8 @@ router.post(`/`, async (req, res) => {
         rating: req.body.rating,
         numReviews: req.body.numReviews,
         isFeatured: req.body.isFeatured,
+        mrp:req.body.mrp,
+        unit: req.body.unit,
     });
 
     product = await product.save();

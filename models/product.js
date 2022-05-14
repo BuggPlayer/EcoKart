@@ -7,37 +7,40 @@ const productSchema = mongoose.Schema({
     },
     description: {
         type: String,
-        required: true
+        required: true,
     },
     richDescription: {
         type: String,
-        default: ''
+        default: '',
     },
     image: {
         type: String,
-        default: ''
+        default: '',
     },
-    images: [{
-        type: String
-    }],
+    images: [
+        {
+            type: String,
+        },
+    ],
     brand: {
         type: String,
-        default: ''
+        default: '',
     },
-    price : {
+    price: {
         type: Number,
-        default:0
+        default: 0,
+        required: true
     },
     category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
-        required:true
+        required: true,
     },
     countInStock: {
         type: Number,
         required: true,
         min: 0,
-        max: 255
+        max: 255,
     },
     rating: {
         type: Number,
@@ -55,13 +58,21 @@ const productSchema = mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-})
-
-productSchema.method('toJSON', function(){
-    const { __v, ...object } = this.toObject();
-    const { _id:id, ...result } = object;
-    return { ...result, id };
+    mrp: {
+        type: Number,
+        required: true,
+        default:0
+    },
+    unit: {
+        type: String,
+        required: true,
+    },
 });
 
+productSchema.method('toJSON', function () {
+    const { __v, ...object } = this.toObject();
+    const { _id: id, ...result } = object;
+    return { ...result, id };
+});
 
 exports.Product = mongoose.model('Product', productSchema);
